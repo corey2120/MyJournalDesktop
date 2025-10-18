@@ -23,3 +23,10 @@ Thumbs.db
 
 # Application data (for testing)
 .myjournal/
+
+# Distribution files (too large for GitHub - host on releases page instead)
+*.AppImage
+*.tar.gz
+*.zip
+*.deb
+*.rpm
