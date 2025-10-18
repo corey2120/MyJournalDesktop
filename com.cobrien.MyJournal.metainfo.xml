@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.cobrien.MyJournal</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>My Journal</name>
+  <summary>A customizable journal application</summary>
+  <description>
+    <p>
+      My Journal is a feature-rich journaling application that allows you to create,
+      edit, and organize your daily journal entries. Key features include:
+    </p>
+    <ul>
+      <li>Create and edit journal entries with custom formatting</li>
+      <li>Customizable background colors and text colors</li>
+      <li>Adjustable font sizes (12-24sp)</li>
+      <li>Persistent local storage</li>
+      <li>Clean and intuitive user interface</li>
+      <li>Export to PDF (coming soon)</li>
+      <li>Handwriting support (coming soon)</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">com.cobrien.MyJournal.desktop</launchable>
+  <provides>
+    <binary>myjournal</binary>
+  </provides>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2024-10-18">
+      <description>
+        <p>Initial release</p>
+      </description>
+    </release>
+  </releases>
+</component>

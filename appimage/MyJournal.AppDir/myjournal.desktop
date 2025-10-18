@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=My Journal
+Comment=A customizable journal application
+Exec=myjournal
+Icon=myjournal
+Categories=Office;WordProcessor;
+Terminal=false
+StartupNotify=true

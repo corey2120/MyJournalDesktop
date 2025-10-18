@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=My Journal
+Comment=A customizable journal application with handwriting support
+Exec=myjournal
+Icon=com.cobrien.MyJournal
+Categories=Office;WordProcessor;
+Terminal=false
+StartupNotify=true

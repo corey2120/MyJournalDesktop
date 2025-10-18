@@ -1,0 +1,2 @@
+Note: Icon file needed - you can use any PNG image (256x256 recommended)
+For now, the build will work without it.

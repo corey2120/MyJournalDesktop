@@ -1,0 +1,60 @@
+app-id: com.cobrien.MyJournal
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk17
+command: myjournal
+finish-args:
+  - --socket=wayland
+  - --socket=x11
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-download
+  - --filesystem=home/.myjournal:create
+build-options:
+  env:
+    - PATH=/usr/lib/sdk/openjdk17/bin:/usr/bin:/bin
+    - JAVA_HOME=/usr/lib/sdk/openjdk17/jvm/openjdk-17
+
+modules:
+  - name: openjdk
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/openjdk17/install.sh
+
+  - name: myjournal
+    buildsystem: simple
+    build-options:
+      build-args:
+        - --share=network
+    build-commands:
+      - ./gradlew createDistributable --no-daemon
+      - mkdir -p /app/bin /app/lib /app/share/applications /app/share/metainfo /app/share/icons/hicolor/256x256/apps
+      - cp -r build/compose/binaries/main/app/* /app/lib/ || cp -r build/compose/binaries/main-release/app/* /app/lib/
+      - |
+        cat > /app/bin/myjournal <<EOF
+        #!/bin/bash
+        # Set DISPLAY if not set (for XWayland on Wayland sessions)
+        if [ -z "\$DISPLAY" ] && [ -n "\$WAYLAND_DISPLAY" ]; then
+          export DISPLAY=:0
+        fi
+        # Try to prevent Skiko crash with software rendering fallback
+        export SKIKO_RENDER_API=SOFTWARE
+        exec /app/lib/MyJournal/bin/MyJournal "\$@"
+        EOF
+      - chmod +x /app/bin/myjournal
+      - install -Dm644 src/main/resources/icon.png /app/share/icons/hicolor/256x256/apps/com.cobrien.MyJournal.png || echo "No icon"
+      - install -Dm644 com.cobrien.MyJournal.desktop /app/share/applications/com.cobrien.MyJournal.desktop
+      - install -Dm644 com.cobrien.MyJournal.metainfo.xml /app/share/metainfo/com.cobrien.MyJournal.metainfo.xml
+    sources:
+      - type: dir
+        path: .
+      - type: file
+        path: myjournal.sh
+      - type: file
+        path: com.cobrien.MyJournal.desktop
+      - type: file
+        path: com.cobrien.MyJournal.metainfo.xml
